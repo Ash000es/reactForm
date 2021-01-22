@@ -1,10 +1,69 @@
 .App {
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+.container {
+  width: 800px;
+  background-color: white;
+  padding: 20px;
+}
+.field-label {
+  margin-top: 10px;
+  margin-bottom: 2px;
+}
+.error-label {
+  color: #ec524b;
+  margin-bottom: 2px;
+  display: block;
+}
+.submit-button {
+  width: 220px;
+  height: 40px;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  align-self: center;
+}
+.add-row-button {
+  width: 180px;
+  height: 40px;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  align-self: center;
+}
+.description {
+  color: #898b8a;
+  font-size: 11px;
+}
+.note {
+  color: #000;
+  font-size: 10px;
+  background-color: #dfe0df;
+  padding: 5px;
+  width: max-content;
+}
+.card-icon {
+  width: 40px;
+}
+.card-name {
+  margin-left: 7px;
+}
+.card-view {
+  margin-top: 10px;
+}
+.vert-flex {
+  display: flex;
+  flex-direction: column;
+}
+.PhoneInputInput {
+  border: none;
+}
+.ml-10 {
+  display: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
