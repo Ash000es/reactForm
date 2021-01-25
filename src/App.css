@@ -46,6 +46,23 @@
   padding: 5px;
   width: max-content;
 }
+.note-description {
+  border: 1px green solid;
+  width: auto;
+  background-color: lightgreen;
+  padding: 10px;
+}
+.space-align-container {
+  width: 100%;
+  border: 1px grey dashed;
+  padding: 20px;
+  margin-top: 30px;
+}
+.space-align-block {
+  display: flex;
+  justify-content: space-between;
+}
+
 .card-icon {
   width: 40px;
 }
