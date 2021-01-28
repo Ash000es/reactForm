@@ -7,8 +7,6 @@ import Error from "./Error";
 
 const {Title, Text} = Typography;
 const {Option} = Select;
-const Style = {
-}
 
 function Address(props) {
   const { form: { errors, touched }} = props;
@@ -24,9 +22,14 @@ function Address(props) {
       <Error errors={errors} touched={touched} name={'line2'}/>
       <Text className='field-label'>Country/region</Text>
       {/* the rest of the api stays as is */}
-      <Select name={'country'}>
+      <Select
+        filterOption={(input, option) =>
+          option.name.toLowerCase().startsWith(input.toLowerCase())
+        }
+        name={'country'}
+        showSearch>
         {countries.map((option) => (
-          <Option value={option.code}>{option.name}</Option>
+          <Option key={option.code} value={option.code} name={option.name} option={option}>{option.name}</Option>
         ))}
       </Select>
       <Error errors={errors} touched={touched} name={'country'}/>

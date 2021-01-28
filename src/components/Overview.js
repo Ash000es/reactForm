@@ -1,13 +1,11 @@
 import React from 'react'
 import {Input, Select} from 'formik-antd'
 import {Typography} from 'antd';
-import {Col, Row} from "react-bootstrap";
+import {Col} from "react-bootstrap";
 import Error from "./Error";
 
 const {Title, Text} = Typography;
 const {Option} = Select;
-
-const Style = {}
 
 function Overview(props) {
   const {
@@ -28,7 +26,7 @@ function Overview(props) {
         <Title level={5}>Star rating?</Title>
         <Select name={'rating'} style={{width: 120}}>
           {props.ratingOptions.map((option) => (
-            <Option value={option.value}>{option.label}</Option>
+            <Option key={option.value} value={option.value}>{option.label}</Option>
           ))}
         </Select>
         <Error errors={errors} touched={touched} name={'rating'}/>

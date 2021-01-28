@@ -1,12 +1,11 @@
 import React, {useState} from 'react'
-import {InputNumber, Select} from 'formik-antd'
+import {Select} from 'formik-antd'
 import {Typography} from 'antd';
 import {Col, Row} from "react-bootstrap";
 import Error from "./Error";
 
 const {Title, Text} = Typography;
 const {Option} = Select;
-const Style = {}
 
 function Pets(props) {
   const {form: {errors, touched}} = props;
@@ -23,7 +22,7 @@ function Pets(props) {
               setCharges(option.charges);
             }}>
               {props.pets.map((option) => (
-                <Option value={option.value} type={option.type} charges={option.charges}>{option.label}</Option>
+                <Option key={option.value} value={option.value} type={option.type} charges={option.charges}>{option.label}</Option>
               ))}
             </Select>
             <Error touched={touched} errors={errors} name={'pets'}/>
@@ -31,7 +30,7 @@ function Pets(props) {
           <Col xs lg="3" className='vert-flex'>
             <Select name={'pets-charges'}>
               {charges.map((option) => (
-                <Option value={option.value}>{option.label}</Option>
+                <Option key={option.value} value={option.value}>{option.label}</Option>
               ))}
             </Select>
             <Error touched={touched} errors={errors} name={'pets-charge'}/>

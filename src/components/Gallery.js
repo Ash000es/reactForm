@@ -1,19 +1,46 @@
-import React, {useCallback, useState} from 'react'
-import {Select} from 'formik-antd'
+import React, {useCallback, useEffect, useState} from 'react'
 import {Button, Typography} from 'antd';
-import {Col} from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
 import {useDropzone} from 'react-dropzone'
-import {UploadOutlined} from '@ant-design/icons';
+import {DeleteOutlined, EditOutlined, UploadOutlined} from '@ant-design/icons';
+import axios from "axios";
 
 const {Title, Text} = Typography;
-const {Option} = Select;
-const Style = {}
 
 function Gallery(props) {
-  const {form: {errors, touched}} = props;
+  const {form: {errors, touched, values}} = props;
+  const [images, setImages] = useState([]);
+  useEffect(() => {
+
+  }, [images])
   const onDrop = useCallback(acceptedFiles => {
+    var formData = new FormData();
+    formData.append("file", acceptedFiles[0]);
+    formData.append('upload_preset', 'hgivoqfs');
+    axios.post('https://api.cloudinary.com/v1_1/djztl9mhi/image/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then((res) => {
+      console.log(res)
+      const _images = [...images];
+      _images.push(res.data.secure_url)
+      setImages(_images);
+      console.log(images)
+    })
   })
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+  const Image = ({src}) => (
+    <Row className={'image-box'}>
+      <img src={src} className={'image'}/>
+      <Button type="text" icon={<EditOutlined/>}>
+        Edit
+      </Button>
+      <Button type="text" icon={<DeleteOutlined/>}>
+        Delete
+      </Button>
+    </Row>
+  )
   return (
     <>
       <Col xs lg="12" className='vert-flex' style={{marginTop: 20}}>
@@ -37,6 +64,11 @@ function Gallery(props) {
             </div>
           </div>
 
+        </div>
+        <div style={{display: 'flex', padding: 0}}>
+          {images && images.length > 0 && (
+            images.map((image, index) => (<Image src={image}/>)))
+          }
         </div>
       </Col>
 

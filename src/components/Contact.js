@@ -8,8 +8,6 @@ import Error from "./Error";
 
 const {Title, Text} = Typography;
 
-const Style = {}
-
 function Contact(props) {
   const { form: { errors, touched }, form} = props;
   return (
@@ -41,9 +39,9 @@ function Contact(props) {
         <Text className='field-label'>
           Do you own multiple hotels, or are you part of property management company or group?
         </Text>
-        <Radio.Group name={'multipleHotels'}>
-          <Radio value={1}>Yes</Radio>
-          <Radio value={2}>No</Radio>
+        <Radio.Group name={'multipleHotels'} defaultValue={false} >
+          <Radio value={true}>Yes</Radio>
+          <Radio value={false}>No</Radio>
         </Radio.Group>
         <Error touched={touched} errors={errors} name={'multipleHotels'}/>
       </Col>
@@ -53,6 +51,5 @@ function Contact(props) {
 }
 
 Contact.defaultProps = {
-
 }
 export default Contact;

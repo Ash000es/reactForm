@@ -1,40 +1,33 @@
-import React from 'react'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import React, {useState} from 'react'
+import {Steps} from 'antd';
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
 import Step4 from "./Step4";
 
+const {Step} = Steps;
+
 function App() {
+  const [step, setStep] = useState(0)
+  const handleNext=(values)=>{
+    if(step<4){
+      setStep(step+1)
+    }
+  }
   return (
-    <Router>
-      <div className={'App'}>
-        <Switch>
-          <Route exact path="/">
-            <Step1/>
-          </Route>
-          <Route exact path="/step1">
-            <Step1/>
-          </Route>
-          <Route exact path="/step2">
-            <Step2/>
-          </Route>
-          <Route exact path="/step3">
-            <Step3/>
-          </Route>
-          <Route exact path="/step4">
-            <Step4/>
-          </Route>
-        </Switch>
-      </div>
-    </Router>
+    <div className={'App'}>
+      {step === 0 && <Step1 onNext={handleNext}/>}
+      {step === 1 && <Step2 onNext={handleNext}/>}
+      {step === 2 && <Step3 onNext={handleNext}/>}
+      {step === 3 && <Step4 onNext={handleNext}/>}
+      <Steps className={'container'} size="small" current={step}>
+        <Step/>
+        <Step/>
+        <Step/>
+        <Step/>
+      </Steps>
+    </div>
   )
 }
-
 
 export default App;

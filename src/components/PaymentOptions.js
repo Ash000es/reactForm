@@ -6,40 +6,36 @@ import PaymentIcon from './payment/PaymentIcon';
 
 const {Title, Text} = Typography;
 
-const Style = {}
-
 function PaymentOptions(props) {
   const {form: {errors, touched}, form} = props;
   const [acceptCard, setAcceptCard] = useState(form && form.values ? form.values.acceptCard : true);
   return (
-    <Row className='vert-flex'>
-      <Col lg="7" className='vert-flex'>
-        <Title level={5} style={{marginTop: 50}}>Guest payment options</Title>
-        <Text className='field-label'>
-          Can you charge credit cards at the property?
-        </Text>
-        <Radio.Group name={'acceptCard'} onChange={({target})=> setAcceptCard(target.value)}>
-          <Radio value={true} >Yes</Radio>
-          <Radio value={false}>No</Radio>
-        </Radio.Group>
+    <Col lg="8" className='vert-flex'>
+      <Title level={5} style={{marginTop: 50}}>Guest payment options</Title>
+      <Text className='field-label'>
+        Can you charge credit cards at the property?
+      </Text>
+      <Radio.Group name={'acceptCard'} onChange={({target}) => setAcceptCard(target.value)}>
+        <Radio value={true}>Yes</Radio>
+        <Radio value={false}>No</Radio>
+      </Radio.Group>
 
-        {acceptCard &&
-          <Row lg="12">
-            {props.options.map((option) => (
-              <Col lg="6" className={'card-view'}>
-                <Checkbox>
-                  <PaymentIcon
-                    id={option.id}
-                    className='card-icon'
-                  />
-                  <Text className='card-name'>{option.label}</Text>
-                </Checkbox>
-              </Col>
-            ))}
-          </Row>
-        }
-      </Col>
-    </Row>
+      {acceptCard &&
+      <Row lg="12">
+        {props.options.map((option) => (
+          <Col lg="6" className={'card-view'} key={option.id}>
+            <Checkbox>
+              <PaymentIcon
+                id={option.id}
+                className='card-icon'
+              />
+              <Text className='card-name'>{option.label}</Text>
+            </Checkbox>
+          </Col>
+        ))}
+      </Row>
+      }
+    </Col>
   )
 }
 

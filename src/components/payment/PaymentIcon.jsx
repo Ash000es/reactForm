@@ -140,7 +140,6 @@ const PaymentIcon = ({
 PaymentIcon.propTypes = {
   style: PropTypes.object,
   className: PropTypes.string,
-  icon: PropTypes.string.isRequired,
   transparent: PropTypes.bool,
 };
 

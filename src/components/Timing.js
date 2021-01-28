@@ -4,7 +4,6 @@ import {Typography} from 'antd';
 import {Col, Row} from "react-bootstrap";
 
 const {Title, Text} = Typography;
-const Style = {}
 function Timing(props) {
   const {form: {errors, touched}} = props;
   return (

@@ -1,10 +1,8 @@
-import React, {useRef, useState} from 'react'
-import {Form, Select} from 'formik-antd'
+import React, {useRef} from 'react'
+import {Form} from 'formik-antd'
 import {Formik} from 'formik'
 import {Typography} from 'antd';
 import {Col} from "react-bootstrap";
-import RoomDetail from "./components/RoomDetail";
-import BedOptions from "./components/BedOptions";
 import Gallery from "./components/Gallery";
 import Cancellation from "./components/Cancelation";
 import Timing from "./components/Timing";
@@ -12,31 +10,15 @@ import Children from "./components/Children";
 import Pets from "./components/Pets";
 
 const {Title, Text} = Typography;
-const {Option} = Select;
 const Style = {
   formRoot: {
     display: 'flex',
     flexDirection: 'column',
-  },
-  colLeft: {
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  fieldLabel: {
-    marginTop: 10
   }
 }
 
-function Step3(props) {
+function Step4(props) {
   const formRef = useRef();
-  const Room = () => {
-    return (
-      <>
-        <RoomDetail form={formRef && formRef.current ? formRef.current : {}}/>
-        <BedOptions form={formRef && formRef.current ? formRef.current : {}}/>
-      </>
-    )
-  }
   return (
     <div className={'container'}>
       <Formik
@@ -66,5 +48,5 @@ function Step3(props) {
   )
 }
 
-Step3.defaultProps = {}
-export default Step3;
+Step4.defaultProps = {}
+export default Step4;

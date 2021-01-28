@@ -1,21 +1,18 @@
 import React, {useState} from 'react'
-import {Checkbox, Select} from 'formik-antd'
+import {Checkbox} from 'formik-antd'
 import {Collapse, Typography} from 'antd';
-
 import {Col} from "react-bootstrap";
 
 const {Title, Text} = Typography;
-const {Option} = Select;
-const Style = {}
-const { Panel } = Collapse;
-const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
+const {Panel} = Collapse;
 
 function Amenities(props) {
-  const {form: {errors, touched}} = props;
+  const {form: {values}} = props;
+  const [amenities, setAmenities] = useState(props.amenities)
+  const genExtra = (amenity) => {
+    const count = values && values['amenities'] && values['amenities'][amenity.label] ? Object.values(values['amenities'][amenity.label]).filter(item => item === true).length:'0';
+    return <Text style={{width: 50}}>{`${count}/${amenity.options.length} selected`}</Text>
+  };
   return (
     <>
       <Col xs lg="12" className='vert-flex' style={{marginTop: 20}}>
@@ -23,9 +20,24 @@ function Amenities(props) {
         <Title level={5}>All Amenities by category</Title>
         <Collapse accordion>
           {
-            props.amenities.map((amenity)=>(
-              <Panel header={amenity.label} key={amenity.label}>
-                {amenity.options.map((option)=>(<Checkbox name={amenity.label}>{option.label}</Checkbox>))}
+            props.amenities.map((amenity, index) => (
+              <Panel
+                header={amenity.label}
+                key={amenity.label}
+                extra={genExtra(amenity,index)}
+              >
+                {amenity.options.map((option, optionIndex) => (
+                  <Checkbox
+                    key={option.label}
+                    name={`amenities.${amenity.label}.${option.label}`}
+                    onChange={(e) => {
+                      const _amenities = [...amenities];
+                      _amenities[index]['options'][optionIndex].value = e.target.value;
+                      setAmenities(_amenities)
+                    }}>
+                    {option.label}
+                  </Checkbox>
+                ))}
               </Panel>
             ))
           }
@@ -41,14 +53,17 @@ Amenities.defaultProps = {
   amenities: [
     {
       label: 'Bathroom',
-      options:[]
+      options: [{
+        label: 'Daily Clean',
+        key: 'daily'
+      }]
     },
     {
       label: 'Food & Drink',
-      options:[
+      options: [
         {
-          label:'Dinning area',
-          key:'dining'
+          label: 'Dinning area',
+          key: 'dining'
         }
       ]
     }
