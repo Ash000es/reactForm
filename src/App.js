@@ -10,6 +10,7 @@ const {Step} = Steps;
 function App() {
   const [step, setStep] = useState(0)
   const handleNext=(values)=>{
+    console.log( `Values of Form ${(step+1)}`, values);
     if(step<4){
       setStep(step+1)
     }
