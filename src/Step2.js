@@ -86,7 +86,6 @@ function Step2(props) {
         initialValues={initials}
         validationSchema={Schema}
         render={({values, isValid}) => {
-          console.log(' values ', values)
           return (
             <Form>
               <div style={Style.formRoot}>
@@ -96,11 +95,13 @@ function Step2(props) {
                     <div>
                       {values && values.rooms && values.rooms.length > 0 ? (
                           values.rooms.map((room, index) => (
-                            <Room key={`rooms[${index}]`} name={`rooms[${index}]`} room={room} index={index} helper={arrayHelpers}/>))) :
+                            <Room key={`rooms[${index}]`} name={`rooms[${index}]`} room={room} index={index}
+                                  helper={arrayHelpers}/>))) :
                         <Room name={`rooms[0]`} index={0} helper={arrayHelpers}/>
                       }
-                      <Row style={{justifyContent: 'flex-end', display: 'flex'}}>
-                        <Col lg={3}><Button
+                      <Row className={'submit-row'} >
+                        <Button className={'back-button'} onClick={props.onBack}>{'Go Back'}</Button>
+                        <Button
                           disabled={!isValid}
                           className={'add-row-button'}
                           onClick={() => {
@@ -108,9 +109,8 @@ function Step2(props) {
                             setSelectedRoom(roomCount);
                             setRoomCount(roomCount + 1)
 
-                          }}>Add another room</Button></Col>
-                        <Col lg={4}><SubmitButton
-                          className='submit-button'>{'Continue'}</SubmitButton></Col>
+                          }}>Add another room</Button>
+                        <SubmitButton className='submit-button'>{'Continue'}</SubmitButton>
                       </Row>
                     </div>
                   )}

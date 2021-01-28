@@ -11,7 +11,6 @@ const {Option} = Select;
 const { RangePicker } = DatePicker;
 
 function BedOptions(props) {
-  console.log(' props ', props)
   const {form: {errors, touched, values}, index} = props;
   const Bed = ({bed,_index})=>(
     <Row style={{marginBottom: 10}}>

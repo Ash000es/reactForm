@@ -25,15 +25,20 @@
 .submit-button {
   width: 220px;
   height: 40px;
-  margin-top: 60px;
-  margin-bottom: 60px;
   align-self: center;
+}
+.back-button {
+  width: 170px;
+  height: 40px;
+  align-self: center;
+  margin-right: 20px;
 }
 .add-row-button {
   width: 180px;
   height: 40px;
   margin-top: 60px;
   margin-bottom: 60px;
+  margin-right: 20px;
   align-self: center;
 }
 .description {
@@ -52,6 +57,15 @@
   width: auto;
   background-color: lightgreen;
   padding: 10px;
+}
+.cancel-policy-description {
+  border: #61dafb  1px solid;
+  width: auto;
+  background-color: aliceblue;
+  padding: 10px;
+  display: grid;
+  font-weight: bold;
+  font-size: 10pt;
 }
 .space-align-container {
   width: 100%;
@@ -80,6 +94,11 @@
   padding: 5px;
   margin-right: 10px;
   margin-left: 10px;
+}
+.submit-row {
+  justify-content: flex-end;
+  display: flex;
+  margin-right: 20px;
 }
 
 .card-icon {

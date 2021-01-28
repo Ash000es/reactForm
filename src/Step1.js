@@ -53,7 +53,7 @@ function Step1(props) {
               <ChannelManager form={formRef && formRef.current ? formRef.current : {}}/>
               <Contact form={formRef && formRef.current ? formRef.current : {}}/>
               <PaymentOptions form={formRef && formRef.current ? formRef.current : {}}/>
-              <SubmitButton className='submit-button'>{'Continue'}</SubmitButton>
+              <SubmitButton className='submit-button' style={{marginTop: 30}}>{'Continue'}</SubmitButton>
             </div>
           </Form>
         )}

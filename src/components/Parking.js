@@ -8,7 +8,7 @@ const {Title, Text} = Typography;
 const {Option} = Select;
 
 function Parking(props) {
-  const {form: {errors, touched}} = props;
+  const {form: {errors, touched, setFieldValue}} = props;
   const [type, setType] = useState([]);
   const [site, setSite] = useState([]);
   const [reservation, setReservation] = useState([false]);
@@ -24,6 +24,12 @@ function Parking(props) {
             <Select placeholder={'select option'} name={'parking'} onChange={(value, option) => {
               setType(option.type);
               setSite(option.site)
+              if(option.type.length>0) {
+                setFieldValue('parkingType',option.type[0].value )
+              }
+              if(option.site.length>0) {
+                setFieldValue('parkingSite',option.site[0].value )
+              }
             }}>
               {props.parking.map((option) => (
                 <Option key={option.value} value={option.value} type={option.type} site={option.siteOption}>{option.label}</Option>

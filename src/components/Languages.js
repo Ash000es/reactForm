@@ -11,7 +11,6 @@ const {Option} = Select;
 
 function Languages(props) {
   const {form: {values}} = props;
-  console.log(values)
   const Language = ({language,index})=>(
     <Select
       style={{marginTop:20}}
@@ -35,7 +34,7 @@ function Languages(props) {
         render={arrayHelpers => (
           <>
             {values && values.languages && values.languages.length > 0 ? (
-                values.languages.map((language, index) => (<Language name={`languages[${index}]`} language={language} index={index}/>))) :
+                values.languages.map((language, index) => (<Language key={`languages[${index}]`} name={`languages[${index}]`} language={language} index={index}/>))) :
               <Language language={{}} index={0}/>
             }
             <Button style={{alignSelf:'flex-start'}} name={'addLanguage'} type="text" icon={<PlusCircleOutlined/>} onClick={() => arrayHelpers.push({})}>

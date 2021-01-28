@@ -42,7 +42,7 @@ function Amenities(props) {
             ))
           }
 
-        </Collapse>,
+        </Collapse>
       </Col>
 
     </>

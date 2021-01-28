@@ -8,11 +8,11 @@ const {Title, Text} = Typography;
 const {Option} = Select;
 
 function Cancellation(props) {
-  const {form: {errors, touched}} = props;
+  const {form: {errors, touched, values}} = props;
   const Days = () => {
     const rows = [];
     for (let i = 0; i < props.maxCancellationDays; i++) {
-      rows.push(<Option key={`${(i+1)}`} value={`${(i+1)}`}>{`${(i+1)} Days`}</Option>)
+      rows.push(<Option key={`${(i + 1)}`} value={`${(i + 1)}`}>{`${(i + 1)} Days`}</Option>)
     }
     return rows;
   }
@@ -22,20 +22,32 @@ function Cancellation(props) {
         {/* every formik-antd component must have the 'name' prop set: */}
         <Title level={5}>Cancellation</Title>
         <Text className='field-label'>How many days in advance can guests free of charge?</Text>
-        <Select name={'cancellationDays'} onChange={(value, option) => {}}>
+        <Select value={'15'} name={'cancellationDays'} onChange={(value, option) => {
+        }}>
           {Days()}
         </Select>
         <Error touched={touched} errors={errors} name={'cancellationDays'}/>
 
         <Text className='field-label'>Or guests will pay</Text>
-        <Select name={'cancellationFee'} onChange={(value, option) => {}}>
+        <Select
+          placeholder={'Select option'}
+          name={'cancellationFee'}
+          onChange={(value, option) => {}}>
           {props.cancellationFeeOptions.map((option) => (
             <Option key={option.value} value={option.value}>{option.label}</Option>
           ))}
         </Select>
         <Error touched={touched} errors={errors} name={'cancellationFee'}/>
       </Col>
-
+      {values && values['cancellationDays'] && <Col xs lg="12" className='vert-flex' style={{marginTop: 20}}>
+        <Text
+          className='note cancel-policy-description'>{`The guest must cancel ${values['cancellationDays']} days in advance
+          or pay ${values['cancellationFee'] ? values['cancellationFee'] : '100'}% of the price of full stay.\n
+          `}
+          <Text style={{fontWeight: 'normal'}}>{`Note: you can your policies later this is just let you start.`}</Text>
+        </Text>
+      </Col>
+      }
     </>
   )
 }

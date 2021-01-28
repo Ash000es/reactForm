@@ -1,8 +1,9 @@
 import React, {useRef} from 'react'
-import {Form} from 'formik-antd'
+import {Form, SubmitButton} from 'formik-antd'
 import {Formik} from 'formik'
-import {Typography} from 'antd';
-import {Col} from "react-bootstrap";
+import {Button, Typography} from 'antd';
+import {Col, Row} from "react-bootstrap";
+import * as Yup from 'yup';
 import Gallery from "./components/Gallery";
 import Cancellation from "./components/Cancelation";
 import Timing from "./components/Timing";
@@ -16,14 +17,32 @@ const Style = {
     flexDirection: 'column',
   }
 }
+const Schema = Yup.object().shape({
+  cancellationDays: Yup.string().required('Required'),
+  checkinFrom: Yup.string().required('Required'),
+  checkinTo: Yup.string().required('Required'),
+  accommodateChildren: Yup.string().required('Required'),
+  pets: Yup.string().required('Required'),
+  images: Yup.array().of(
+    Yup.object().shape({
+      img: Yup.string().required('Required')
+    })
+  ).min(1, 'required').required('required'),
+})
+const initials = {
+  cancellationDays: 10
+}
 
 function Step4(props) {
   const formRef = useRef();
   return (
     <div className={'container'}>
       <Formik
+        onSubmit={(values) => props.onNext(values)}
+        validateOnMount={true}
         innerRef={formRef}
-        initialValues={{firstName: '', age: 20, newsletter: false}}
+        initialValues={initials}
+        validationSchema={Schema}
         render={() => (
           <Form>
             <div style={Style.formRoot}>
@@ -40,6 +59,10 @@ function Step4(props) {
               <Timing form={formRef && formRef.current ? formRef.current : {}}/>
               <Children form={formRef && formRef.current ? formRef.current : {}}/>
               <Pets form={formRef && formRef.current ? formRef.current : {}}/>
+              <Row className={'submit-row'} style={{marginTop: 40}}>
+                <Button className={'back-button'} onClick={props.onBack}>{'Go Back'}</Button>
+                <SubmitButton className='submit-button'>{'Continue'}</SubmitButton>
+              </Row>
             </div>
           </Form>
         )}

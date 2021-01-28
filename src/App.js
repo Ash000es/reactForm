@@ -11,16 +11,19 @@ function App() {
   const [step, setStep] = useState(0)
   const handleNext=(values)=>{
     console.log( `Values of Form ${(step+1)}`, values);
-    if(step<4){
+    if(step<3){
       setStep(step+1)
     }
   }
+  const handleBack=()=>{
+    setStep(step-1)
+  }
   return (
     <div className={'App'}>
-      {step === 0 && <Step1 onNext={handleNext}/>}
-      {step === 1 && <Step2 onNext={handleNext}/>}
-      {step === 2 && <Step3 onNext={handleNext}/>}
-      {step === 3 && <Step4 onNext={handleNext}/>}
+      {step === 0 && <Step1 onNext={handleNext} />}
+      {step === 1 && <Step2 onNext={handleNext} onBack={handleBack}/>}
+      {step === 2 && <Step3 onNext={handleNext} onBack={handleBack}/>}
+      {step === 3 && <Step4 onNext={handleNext} onBack={handleBack}/>}
       <Steps className={'container'} size="small" current={step}>
         <Step/>
         <Step/>

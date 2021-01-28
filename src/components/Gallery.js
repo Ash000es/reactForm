@@ -1,18 +1,15 @@
-import React, {useCallback, useEffect, useState} from 'react'
-import {Button, Typography} from 'antd';
+import React, {useCallback, useState} from 'react'
+import {Button, Image, Typography} from 'antd';
 import {Col, Row} from "react-bootstrap";
 import {useDropzone} from 'react-dropzone'
-import {DeleteOutlined, EditOutlined, UploadOutlined} from '@ant-design/icons';
+import {DeleteOutlined, UploadOutlined} from '@ant-design/icons';
 import axios from "axios";
 
 const {Title, Text} = Typography;
 
 function Gallery(props) {
-  const {form: {errors, touched, values}} = props;
-  const [images, setImages] = useState([]);
-  useEffect(() => {
-
-  }, [images])
+  const {form: {errors, touched, values, setFieldValue}} = props;
+  const [images, setImages] = useState(values && values['images'] ? values['images'] : [] );
   const onDrop = useCallback(acceptedFiles => {
     var formData = new FormData();
     formData.append("file", acceptedFiles[0]);
@@ -22,21 +19,29 @@ function Gallery(props) {
         'Content-Type': 'multipart/form-data'
       }
     }).then((res) => {
-      console.log(res)
       const _images = [...images];
-      _images.push(res.data.secure_url)
+      setFieldValue(`images[${_images.length}].img`,res.data.secure_url)
+      _images.push({img: res.data.secure_url})
       setImages(_images);
-      console.log(images)
     })
   })
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
-  const Image = ({src}) => (
+  const Image = ({src, index}) => (
     <Row className={'image-box'}>
       <img src={src} className={'image'}/>
-      <Button type="text" icon={<EditOutlined/>}>
-        Edit
-      </Button>
-      <Button type="text" icon={<DeleteOutlined/>}>
+      <Button
+        onClick={()=>{
+          let _images = images;
+          _images.splice(index, 1);
+          setFieldValue('images', _images)
+          setImages(_images)
+        }}
+        style={{
+          alignItems: 'center',
+          display: 'flex'
+        }}
+        type="text"
+        icon={<DeleteOutlined/>}>
         Delete
       </Button>
     </Row>
@@ -44,7 +49,6 @@ function Gallery(props) {
   return (
     <>
       <Col xs lg="12" className='vert-flex' style={{marginTop: 20}}>
-        {/* every formik-antd component must have the 'name' prop set: */}
         <Title level={5}>Photo gallery</Title>
         <Text className='note note-description'>Great, thanks! You can now continue signup. To increase your chances of
           getting more bookings,
@@ -66,12 +70,11 @@ function Gallery(props) {
 
         </div>
         <div style={{display: 'flex', padding: 0}}>
-          {images && images.length > 0 && (
-            images.map((image, index) => (<Image src={image}/>)))
+          {values && values['images'] && values['images'].length > 0 && (
+            values['images'].map((image, index) => (<Image src={image.img} index={index}/>)))
           }
         </div>
       </Col>
-
     </>
   )
 }
